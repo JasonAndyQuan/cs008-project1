@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+//do menu 1 and 4
 int main(){
 
     char input = 'y';
