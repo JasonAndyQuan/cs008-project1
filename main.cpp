@@ -4,22 +4,23 @@
 
 using namespace std;
 
-
-int main(){
+int main()
+{
 
     char input = 'y';
     string course, enrollment;
-    //course.txt enrollment.txt
+    // course.txt enrollment.txt
     cout << "Enter course filename : ";
     cin >> course;
     cout << "Enter enrollment filename : ";
     cin >> enrollment;
-    
-    Course* courses = setUp(course, enrollment);
-    // linkedList<Student> students = getStudents(enrollment);
+
+    Course *courses = setUp(course, enrollment);
+    linkedList<Student> students = getStudents(enrollment);
     int size = getCourseSize(course);
 
-    do {
+    do
+    {
         cout << "\n============== Menu ==============\n";
         cout << "1. View your registration\n";
         cout << "2. Course registration\n";
@@ -29,26 +30,27 @@ int main(){
         cout << "---> Select : ";
 
         cin >> input;
-        switch (input){
-            case ('1'):
-                // menu1(students);
-                break;
-            case ('2'):
-                ///asd
-                break;
-            case ('3'):
-                ///asd
-                break;
-            case ('4'):
-                menu4(courses, size);
-                break;
-            case ('5'):
-                ///asd
-                break;
-            default:
-                cout << "\n invalid input \n";
-                break;
-            }
+        switch (input)
+        {
+        case ('1'):
+            menu1(courses, size);
+            break;
+        case ('2'):
+            /// asd
+            break;
+        case ('3'):
+            /// asd
+            break;
+        case ('4'):
+            menu4(courses, size);
+            break;
+        case ('5'):
+            /// asd
+            break;
+        default:
+            cout << "\n invalid input \n";
+            break;
+        }
     } while (input != 5);
     return 0;
 }

@@ -1,9 +1,10 @@
 #include "Classes/course.cpp"
 #include "Classes/student.cpp"
 #include <fstream>
-using namespace std;
 #include <iostream>
-#include <vector>
+#include <iomanip>
+#include <deque>
+using namespace std;
 
 Course *setUp(string courseFile, string enrollmentFile)
 {
@@ -44,8 +45,8 @@ Course *setUp(string courseFile, string enrollmentFile)
     bool pass = false;
     while (!infile.eof())
     {
-        vector<string> totalClasses;
-        vector<string> totalClassesWaitList;
+        deque<string> totalClasses;
+        deque<string> totalClassesWaitList;
         int id, studEnrolled, studWait;
         string courseName, name;
         if (pass)
@@ -59,23 +60,19 @@ Course *setUp(string courseFile, string enrollmentFile)
             infile >> id >> name >> studEnrolled;
         }
         // cout << "\n----------" << name << "--------------\n";
-        linkedList<string> classes;
         for (int p = 0; p < studEnrolled; p++)
         {
             infile >> courseName;
-            classes.insert(courseName);
             totalClasses.push_back(courseName);
             // cout << "\n course is : " << courseName << endl;
         }
         int nextNumber;
         infile >> nextNumber;
-        linkedList<string> studWaitList;
         if (nextNumber < 100)
         {
             for (int p = 0; p < nextNumber; p++)
             {
                 infile >> courseName;
-                studWaitList.insert(courseName);
                 totalClassesWaitList.push_back(courseName);
                 // cout << "\n COURSE is : " << courseName << endl;
             }
@@ -87,7 +84,7 @@ Course *setUp(string courseFile, string enrollmentFile)
         }
 
         int waitlistCount = (nextNumber < 100) ? nextNumber : 0;
-        Student newStudent(id, name, studWaitList, classes, studEnrolled, waitlistCount);
+        Student newStudent(id, name, totalClassesWaitList, totalClasses, studEnrolled, waitlistCount);
 
         for (string course : totalClasses)
         {
@@ -144,16 +141,18 @@ void menu4(Course *courses, int size)
         }
     }
 }
-linkedList<Student> getStudents (string file){
-    linkedList<Student> list;
+linkedList<Student> getStudents(string file)
+{
+    linkedList<Student> students;
     ifstream infile;
     infile.open(file);
+
     int id2;
     bool pass = false;
     while (!infile.eof())
     {
-        vector<string> totalClasses;
-        vector<string> totalClassesWaitList;
+        deque<string> totalClasses;
+        deque<string> totalClassesWaitList;
         int id, studEnrolled, studWait;
         string courseName, name;
         if (pass)
@@ -167,23 +166,19 @@ linkedList<Student> getStudents (string file){
             infile >> id >> name >> studEnrolled;
         }
         // cout << "\n----------" << name << "--------------\n";
-        linkedList<string> classes;
         for (int p = 0; p < studEnrolled; p++)
         {
             infile >> courseName;
-            classes.insert(courseName);
             totalClasses.push_back(courseName);
             // cout << "\n course is : " << courseName << endl;
         }
         int nextNumber;
         infile >> nextNumber;
-        linkedList<string> studWaitList;
         if (nextNumber < 100)
         {
             for (int p = 0; p < nextNumber; p++)
             {
                 infile >> courseName;
-                studWaitList.insert(courseName);
                 totalClassesWaitList.push_back(courseName);
                 // cout << "\n COURSE is : " << courseName << endl;
             }
@@ -195,12 +190,27 @@ linkedList<Student> getStudents (string file){
         }
 
         int waitlistCount = (nextNumber < 100) ? nextNumber : 0;
-        Student newStudent(id, name, studWaitList, classes, studEnrolled, waitlistCount);
-        list.insert(newStudent);
+        Student newStudent(id, name, totalClassesWaitList, totalClasses, studEnrolled, waitlistCount);
+        students.insert(newStudent);
     }
-    return list;
+    return students;
 }
-void menu1(linkedList<Student> students){
+
+void menu1Printer(Course *courses,int size, int id, string name, bool isWaitlist)
+{
+    for (int i = 0; i < size; i++)
+    {
+        node<Student> *temp = (isWaitlist) ? courses[i].getWaitlist().getHead() : courses[i].getEnrolled().getHead();
+        string key = (isWaitlist) ? "(W)   " : "(R)   ";
+
+        while (temp && id != temp->getData().getId())
+            temp = temp->getLink();
+        if (temp)
+            cout << key << courses[i].getTitle() << "   " << courses[i].getCourseName() << endl;
+    }
+}
+void menu1(Course *courses, int size)
+{
     int id;
     string name;
     cout << "\nEnter your id: ";
@@ -208,12 +218,8 @@ void menu1(linkedList<Student> students){
     cout << "Enter your Name: ";
     cin >> name;
 
-    node<Student>* temp = students.getHead();
-    while (temp && temp->getData().getId() != id)
-        temp = temp->getLink();
-    
-    cout << "You registered " << temp->getData().getEnrolledCount() << " and waitlisted " <<temp->getData().getWaitlistCount() << " courses.";
-
+    menu1Printer(courses, size, id, name, false);
+    menu1Printer(courses, size, id, name, true);
 }
 
 // cout << "\n\n\n here: ";
