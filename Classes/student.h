@@ -12,7 +12,6 @@ private:
     linkedList<std::string> waitlist;
     linkedList<std::string> courses;
 
-
     int enrolledCount;
     int waitListCount;
 

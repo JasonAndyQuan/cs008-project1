@@ -7,7 +7,6 @@ using namespace std;
 
 Course *setUp(string courseFile, string enrollmentFile)
 {
-
     ifstream infile;
     int size = 1;
     Course *result = new Course[size];
@@ -42,10 +41,12 @@ Course *setUp(string courseFile, string enrollmentFile)
 
     int id2;
     bool pass = false;
+
     while (!infile.eof())
     {
         linkedList<std::string> totalClasses;
         linkedList<std::string> totalClassesWaitList;
+
         int id, studEnrolled, studWait;
         string courseName, name;
         if (pass)
@@ -85,25 +86,24 @@ Course *setUp(string courseFile, string enrollmentFile)
         int waitlistCount = (nextNumber < 100) ? nextNumber : 0;
         Student newStudent(id, name, totalClassesWaitList, totalClasses, studEnrolled, waitlistCount);
 
-        node<string>* temp = newStudent.getCourses().getHead();
+        node<string>* temp = totalClasses.getHead();
         while (temp){
             for (int z = 0; z < size; z++)
             {
-                if (result[z].getTitle() == temp->getData())
-                    result[z].getEnrolled().insert(newStudent);
+                if (result[z].getTitle() == temp->getData()){
+                    result[z].getEnrolled().insert(newStudent);}
             }
             temp = temp->getLink();
         }
-        temp = newStudent.getWaitList().getHead();
-        while (temp){
+        node<string>* temp2 = totalClassesWaitList.getHead();
+        while (temp2){
             for (int z = 0; z < size; z++)
             {
-                if (result[z].getTitle() == temp->getData())
+                if (result[z].getTitle() == temp2->getData())
                     result[z].getWaitlist().insert(newStudent);
             }
-            temp = temp->getLink();
+            temp2 = temp2->getLink();
         }
-
     }
     // for (int j = 0; j < i; j++){
     //     cout << result[j].getCourseName() << " : ";

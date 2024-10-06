@@ -15,7 +15,6 @@ class Course {
     public:
         Course();
         Course(std::string, std::string, int, int);
-        // ~Course();
 
         linkedList<Student>& getEnrolled() ;
         linkedList<Student>& getWaitlist() ;

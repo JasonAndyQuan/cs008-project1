@@ -6,7 +6,6 @@ linkedList<dataType>::linkedList()
 {
     this->head = nullptr;
 }
-
 template <class dataType>
 linkedList<dataType>::linkedList(node<dataType> *newHead)
 {
@@ -17,10 +16,10 @@ template <class dataType>
 node<dataType>* linkedList<dataType>::getHead(){
     return this->head;
 }
-
 // template <class dataType>
 // linkedList<dataType>::~linkedList()
 // {
+//     std:: cout << " 1 ";
 //     node<dataType> *temp = this->head;
 //     while (temp)
 //     {
@@ -28,8 +27,8 @@ node<dataType>* linkedList<dataType>::getHead(){
 //         temp = temp->getLink();
 //         delete lag;
 //     }
+//     head = nullptr;
 // }
-
 template <class dataType>
 void linkedList<dataType>::printList()
 {

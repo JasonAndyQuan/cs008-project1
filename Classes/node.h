@@ -31,7 +31,7 @@ node<dataType>::node(node<dataType>* next, dataType data) {
 
 template<class dataType>
 dataType node<dataType>::getData() const {
-    return this->data;
+        return this->data;
 }
 
 template<class dataType>

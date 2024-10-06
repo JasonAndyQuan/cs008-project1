@@ -3,21 +3,13 @@
 Course::Course(){
     this->title = "none";
     this->courseName = "none";
-    this->enrolled = nullptr;
-    this->waitlist = nullptr;
 }
 Course::Course(std::string courseName, std::string title, int waitCount, int enrolledCount){
     this->title = title;
     this->courseName = courseName;
     this->enrolledCount = enrolledCount;
     this->waitListCount = waitCount;
-    this->enrolled = nullptr;
-    this->waitlist = nullptr;
 }
-
-// Course::~Course(){
-    
-// }
 
 linkedList<Student>& Course::getEnrolled(){
     return this->enrolled;
