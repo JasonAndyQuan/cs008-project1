@@ -4,7 +4,7 @@
 template <class dataType>
 linkedList<dataType>::linkedList()
 {
-    this->head = NULL;
+    this->head = nullptr;
 }
 
 template <class dataType>
@@ -18,17 +18,17 @@ node<dataType>* linkedList<dataType>::getHead(){
     return this->head;
 }
 
-template <class dataType>
-linkedList<dataType>::~linkedList()
-{
-    node<dataType> *temp = this->head;
-    while (temp)
-    {
-        node<dataType> *lag = temp;
-        temp = temp->getLink();
-        delete lag;
-    }
-}
+// template <class dataType>
+// linkedList<dataType>::~linkedList()
+// {
+//     node<dataType> *temp = this->head;
+//     while (temp)
+//     {
+//         node<dataType> *lag = temp;
+//         temp = temp->getLink();
+//         delete lag;
+//     }
+// }
 
 template <class dataType>
 void linkedList<dataType>::printList()

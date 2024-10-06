@@ -16,7 +16,6 @@ int main()
     cin >> enrollment;
 
     Course *courses = setUp(course, enrollment);
-    linkedList<Student> students = getStudents(enrollment);
     int size = getCourseSize(course);
 
     do

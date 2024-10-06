@@ -10,7 +10,7 @@ class linkedList
     public:
         linkedList<dataType>();
         linkedList<dataType>(node<dataType>*);
-        ~linkedList();
+        // ~linkedList();
 
         node<dataType>* getHead();
         void printStudents();
