@@ -1,4 +1,6 @@
+#include "menuFunctions.cpp"
 #include <iostream>
+
 using namespace std;
 
 //do menu 1 and 4
