@@ -9,26 +9,29 @@ int main(){
 
     char input = 'y';
     string course, enrollment;
-
+    //course.txt enrollment.txt
     cout << "Enter course filename : ";
     cin >> course;
     cout << "Enter enrollment filename : ";
     cin >> enrollment;
     
-    Course* courses = setUp(courses, course, enrollment);
+    Course* courses = setUp(course, enrollment);
+    // linkedList<Student> students = getStudents(enrollment);
+    int size = getCourseSize(course);
 
     do {
         cout << "\n============== Menu ==============\n";
         cout << "1. View your registration\n";
         cout << "2. Course registration\n";
         cout << "3. Course cancellation\n";
-        cout << "4. Print enrollment list inclusing waitlist\n";
+        cout << "4. Print enrollment list including waitlist\n";
         cout << "5. Exit\n";
         cout << "---> Select : ";
 
         cin >> input;
         switch (input){
             case ('1'):
+                // menu1(students);
                 break;
             case ('2'):
                 ///asd
@@ -37,7 +40,7 @@ int main(){
                 ///asd
                 break;
             case ('4'):
-                ///asd
+                menu4(courses, size);
                 break;
             case ('5'):
                 ///asd

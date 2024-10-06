@@ -12,6 +12,8 @@ class linkedList
         linkedList<dataType>(node<dataType>*);
         ~linkedList();
 
+        node<dataType>* getHead();
+        void printStudents();
         void printList(); //done
         void insert(dataType); // done
         void insertHead(dataType); //done

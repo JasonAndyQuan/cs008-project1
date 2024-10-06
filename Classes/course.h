@@ -1,29 +1,37 @@
 #pragma once
 #include <iostream>
 #include "student.h"
-#include <deque>
+#include "linkedlist.h"
 
 class Course {
     private: 
         std::string title;
         std::string courseName;
-
-        std::deque<Student> enrolled;
-        std::deque<Student> waitlist;
+        linkedList<Student> enrolled;
+        linkedList<Student> waitlist;
+        int waitListCount;
+        int enrolledCount;
+        
     public:
         Course();
-        Course(std::deque<Student>&, std::deque<Student>&, std::string, std::string, int, int);
+        Course(std::string, std::string, int, int);
         // ~Course();
 
-        std::deque<Student> getEnrolled() const;
-        std::deque<Student> getWaitlist() const;
+        linkedList<Student>& getEnrolled() ;
+        linkedList<Student>& getWaitlist() ;
+
         std::string getCourseName() const;
         std::string getTitle() const;
+
         int getWaitListCount() const;
         int getEnrolledCount() const;
 
-        void setEnrolled(std::deque<Student>&);
-        void setWaitlist(std::deque<Student>&);
+        void setEnrolled(linkedList<Student>&);
+        void setWaitlist(linkedList<Student>&);
+
+        void setWaitListCount(int);
+        void setEnrolledCount(int);
+
 
         void setCourseName(std::string);
         void setTitle(std::string);

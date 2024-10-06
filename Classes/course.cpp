@@ -3,22 +3,26 @@
 Course::Course(){
     this->title = "none";
     this->courseName = "none";
+    this->enrolled = nullptr;
+    this->waitlist = nullptr;
 }
-Course::Course(std::deque<Student>& enrolled, std::deque<Student>& waitlist, std::string courseName, std::string title, int waitCount, int enrolledCount){
+Course::Course(std::string courseName, std::string title, int waitCount, int enrolledCount){
     this->title = title;
     this->courseName = courseName;
-    this->enrolled = enrolled;
-    this->waitlist = waitlist;
+    this->enrolledCount = enrolledCount;
+    this->waitListCount = waitCount;
+    this->enrolled = nullptr;
+    this->waitlist = nullptr;
 }
 
 // Course::~Course(){
     
 // }
 
-std::deque<Student> Course::getEnrolled() const{
+linkedList<Student>& Course::getEnrolled(){
     return this->enrolled;
 }
-std::deque<Student> Course::getWaitlist() const{
+linkedList<Student>& Course::getWaitlist(){
     return this->waitlist;
 }
 std::string Course::getCourseName() const{
@@ -28,15 +32,15 @@ std::string Course::getTitle() const{
     return this->title;
 }
 int Course::getWaitListCount() const{
-    return this->waitlist.size();
+    return this->waitListCount;
 }
 int Course::getEnrolledCount() const{
-    return this->enrolled.size();
+    return this->enrolledCount;
 }
-void Course::setEnrolled(std::deque<Student>& enrolledNew) {
+void Course::setEnrolled(linkedList<Student>& enrolledNew) {
     this->enrolled = enrolledNew;
 }
-void Course::setWaitlist(std::deque<Student>& waitlistedNew){
+void Course::setWaitlist(linkedList<Student>& waitlistedNew){
     this->waitlist = waitlistedNew;
 }
 void Course::setCourseName(std::string name){
@@ -44,4 +48,10 @@ void Course::setCourseName(std::string name){
 }
 void Course::setTitle(std::string val){
     this->title = val;
+}
+void Course::setWaitListCount(int num){
+    this->waitListCount = num;
+}
+void Course::setEnrolledCount(int num){
+    this->enrolledCount = num;
 }

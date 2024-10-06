@@ -1,4 +1,5 @@
 #include "linkedlist.h"
+#include "student.h"
 #include <iostream>
 template <class dataType>
 linkedList<dataType>::linkedList()
@@ -10,6 +11,11 @@ template <class dataType>
 linkedList<dataType>::linkedList(node<dataType> *newHead)
 {
     this->head = newHead;
+}
+
+template <class dataType>
+node<dataType>* linkedList<dataType>::getHead(){
+    return this->head;
 }
 
 template <class dataType>
@@ -38,7 +44,7 @@ void linkedList<dataType>::printList()
     while (temp)
     {
         std::cout << temp->getData() << "->";
-        temp = temp->getNextLink();
+        temp = temp->getLink();
     }
     std::cout << "NULL\n";
 }
@@ -58,19 +64,29 @@ void linkedList<dataType>::insertHead(dataType data)
 
 
 template <class dataType>
+void linkedList<dataType>::printStudents(){
+    node<dataType>* temp = this->head;
+
+    while (temp){
+        std::cout << temp->getData().getId() <<  " " << temp->getData().getName() << std::endl;
+        temp = temp->getLink();
+    }
+}
+
+template <class dataType>
 void linkedList<dataType>::insert(dataType data)
 {   
     // precondition: takes in a linkedlist and a data
     // postcondition : Inserts a new node with data into the list, in a sorted manner.
 
-    if (!this->head || data <= this->head->getData())
+    if (!this->head)
     {
         this->insertHead(data);
         return;
     }
 
     node<dataType> *temp = this->head;
-    while (temp->getLink() && temp->getLink()->getData() < data)
+    while (temp->getLink())
         temp = temp->getLink();
 
     node<dataType> *newNode = new node<dataType>;
