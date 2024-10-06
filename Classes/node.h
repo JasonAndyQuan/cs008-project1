@@ -13,7 +13,9 @@ class node {
         dataType getData() const;
         void setData(dataType);
 
-        node<dataType>* getLink() const;
+        node<dataType>* getLink() const{
+            return this->link;
+        }
 
         void setLink(node<dataType>*);
 

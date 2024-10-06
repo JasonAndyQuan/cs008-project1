@@ -23,6 +23,7 @@ linkedList<dataType>::~linkedList()
         delete lag;
     }
 }
+
 template <class dataType>
 void linkedList<dataType>::printList()
 {

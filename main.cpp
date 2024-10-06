@@ -1,9 +1,10 @@
+
 #include "menuFunctions.cpp"
 #include <iostream>
 
 using namespace std;
 
-//do menu 1 and 4
+
 int main(){
 
     char input = 'y';
@@ -13,6 +14,8 @@ int main(){
     cin >> course;
     cout << "Enter enrollment filename : ";
     cin >> enrollment;
+    
+    Course* courses = setUp(courses, course, enrollment);
 
     do {
         cout << "\n============== Menu ==============\n";
@@ -44,4 +47,5 @@ int main(){
                 break;
             }
     } while (input != 5);
+    return 0;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 // #include "course.h"
-#include "linkedlist.h"
+#include "linkedlist.cpp"
 
 class Student
 {

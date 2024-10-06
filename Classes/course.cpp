@@ -1,12 +1,12 @@
 #include "Course.h"
 
 Course::Course(){
-    this->crn = 0;
+    this->title = "none";
     this->courseName = "none";
 }
-Course::Course(std::deque<Student>& enrolled, std::deque<Student>& waitlist, std::string Course, int crn, int waitCount, int enrolledCount){
-    this->crn = crn;
-    this->courseName = Course;
+Course::Course(std::deque<Student>& enrolled, std::deque<Student>& waitlist, std::string courseName, std::string title, int waitCount, int enrolledCount){
+    this->title = title;
+    this->courseName = courseName;
     this->enrolled = enrolled;
     this->waitlist = waitlist;
 }
@@ -24,8 +24,8 @@ std::deque<Student> Course::getWaitlist() const{
 std::string Course::getCourseName() const{
     return this->courseName;  
 }
-int Course::getCrn() const{
-    return this->crn;
+std::string Course::getTitle() const{
+    return this->title;
 }
 int Course::getWaitListCount() const{
     return this->waitlist.size();
@@ -42,7 +42,6 @@ void Course::setWaitlist(std::deque<Student>& waitlistedNew){
 void Course::setCourseName(std::string name){
     this->courseName = name;
 }
-void Course::setCrn(int num){
-    this->crn = num;
-    
+void Course::setTitle(std::string val){
+    this->title = val;
 }

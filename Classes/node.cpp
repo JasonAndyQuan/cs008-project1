@@ -21,11 +21,10 @@ void node<dataType>::setData(dataType newData){
     this->data = newData;
 }
 
-template<class dataType>
-node<dataType>* node<dataType>::getLink() const{
-    return this->link;
-}
-
+// template<class dataType>
+// node<dataType>* node<dataType>::getLink() const{
+//     return this->link;
+// }
 template<class dataType>
 void node<dataType>::setLink(node<dataType>* link){
     this->link = link;
