@@ -195,7 +195,8 @@ void menu1(Course *courses, int size)
     for (int i = 0; i < size; i++)
     {
         Student student = findStudent(courses, size, id);
-        if (student.getName() != "student not found");
+        if (student.getName() != "student not found")
+            ;
         {
             cout << "You registered " << student.getEnrolledCount() << " courses and waitlisted " << student.getWaitlistCount() << " courses. \n";
             break;
@@ -204,9 +205,11 @@ void menu1(Course *courses, int size)
     menu1Printer(courses, size, id, name, false);
     menu1Printer(courses, size, id, name, true);
 }
-void updateCourseInfo(Course *courses, int size, Student student){
+void updateCourseInfo(Course *courses, int size, Student student)
+{
     int id = student.getId();
-    for (int i = 0; i < size; i++){
+    for (int i = 0; i < size; i++)
+    {
         node<Student> *temp = courses[i].getEnrolled().getHead();
         while (temp && id != temp->getData().getId())
             temp = temp->getLink();
@@ -260,6 +263,65 @@ void menu2(Course *courses, int size)
         }
     }
     updateCourseInfo(courses, size, student);
+}
+void menu3(Course *courses, int size)
+{
+    int id;
+    string name, code, title;
+    cout << "Enter your id : ";
+    cin >> id;
+    cout << "Enter your name : ";
+    cin >> name;
+    cout << "Enter course code : ";
+    cin >> code;
+    cout << "Enter course title : ";
+    cin >> title;
+
+    Student student = findStudent(courses, size, id);
+    bool isWait = false;
+    if (student.getCourses().deleteSpecific(code))
+    {
+        cout << "'" << title << "' is removed from your course list. \n";
+        student.setEnrolledCount(student.getEnrolledCount() - 1);
+    }
+    else if (student.getWaitList().deleteSpecific(code))
+    {
+        cout << "You have been removed from the waitlist of '" << title << "'";
+        student.setWaitlistCount(student.getWaitlistCount() - 1);
+        isWait = true;
+    }
+    else
+    {
+        cout << " Course not found \n";
+        return;
+    }
+    updateCourseInfo(courses, size, student);
+
+    for (int i = 0; i < size; i++)
+    {
+        if (courses[i].getCode() == code && courses[i].getCourseName() == title)
+        {
+            if (!isWait)
+            {
+                courses[i].getEnrolled().deleteSpecific(student);
+                if (courses[i].getWaitListCount() != 0)
+                {
+                    courses[i].setWaitListCount(courses[i].getWaitListCount() - 1);
+                    courses[i].getEnrolled().insertHead(courses[i].getWaitlist().getHead()->getData());
+                    courses[i].getWaitlist().deleteHead();
+                }
+                else
+                {
+                    courses[i].setEnrolledCount(courses[i].getEnrolledCount() - 1);
+                }
+            }
+            else
+            {
+                courses[i].setWaitListCount(courses[i].getWaitListCount() - 1);
+                courses[i].getWaitlist().deleteSpecific(student);
+            }
+        }
+    }
 }
 
 // cout << "\n\n\n here: ";

@@ -20,7 +20,7 @@ int main()
 
     do
     {
-        cout << "\n============== Menu ==============\n";
+        cout << "\n\n============== Menu ==============\n";
         cout << "1. View your registration\n";
         cout << "2. Course registration\n";
         cout << "3. Course cancellation\n";
@@ -29,6 +29,7 @@ int main()
         cout << "---> Select : ";
 
         cin >> input;
+        cout << endl;
         switch (input)
         {
         case ('1'):
@@ -38,6 +39,7 @@ int main()
             menu2(courses, size);
             break;
         case ('3'):
+            menu3(courses, size);
             break;
         case ('4'):
             menu4(courses, size);

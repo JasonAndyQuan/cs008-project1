@@ -113,33 +113,32 @@ void linkedList<dataType>::deleteHead()
 }
 
 template <typename dataType>
-void linkedList<dataType>::deleteSpecific(dataType value)
+bool linkedList<dataType>::deleteSpecific(dataType value)
 {
     // precondition: takes in a linked list and a value
-    // postcondition: deletes the node with the given data value
-
+    // postcondition: deletes the node with the given data value, returns true if successful, false if not found
     node<dataType> *finder = this->head;
     if (!finder)
     {
         std::cout << "List is empty\n";
-        return;
+        return false;
     }
     if (finder->getData() == value)
     {
         this->deleteHead();
-        return;
+        return true;
     }
 
-    while (finder->getLink() && finder->getLink()->getData() != value)
+    while (finder->getLink() && !(finder->getLink()->getData() == value))
         finder = finder->getLink();
 
     if (!finder->getLink())
     {
-        std::cout << "Value not found \n";
-        return;
+        return false;
     }
 
     node<dataType> *temp = finder->getLink();
     finder->setLink(temp->getLink());
     delete temp;
+    return true;
 }

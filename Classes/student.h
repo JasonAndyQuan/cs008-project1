@@ -34,5 +34,5 @@ public:
     void setEnrolledCount(int);
     void setWaitlistCount(int);
     friend std::ostream &operator<<(std::ostream &os, const Student &student);
-
+    friend bool operator==(const Student&, const Student&);
 };

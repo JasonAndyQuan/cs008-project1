@@ -58,3 +58,13 @@ int Student::getEnrolledCount() const {
 int Student::getWaitlistCount() const {
     return this->waitListCount;
 }
+bool operator==(const Student& one, const Student& two)
+{
+    if (one.getId() != two.getId())
+        return false;
+
+    if (one.getName() != two.getName())
+        return false;
+
+    return true;
+}
