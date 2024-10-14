@@ -25,10 +25,10 @@ int Student::getId() const{
 std::string Student::getName() const{
     return this->name;
 }
-linkedList<std::string> Student::getCourses() const{
+linkedList<std::string>& Student::getCourses(){
     return this->courses;
 }
-linkedList<std::string> Student::getWaitList() const{
+linkedList<std::string>& Student::getWaitList(){
     return this->waitlist;
 }
 void Student::setId(int id){

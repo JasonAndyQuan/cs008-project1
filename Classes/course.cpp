@@ -1,11 +1,11 @@
 #include "Course.h"
 
 Course::Course(){
-    this->title = "none";
+    this->code = "none";
     this->courseName = "none";
 }
-Course::Course(std::string courseName, std::string title, int waitCount, int enrolledCount){
-    this->title = title;
+Course::Course(std::string courseName, std::string code, int waitCount, int enrolledCount){
+    this->code = code;
     this->courseName = courseName;
     this->enrolledCount = enrolledCount;
     this->waitListCount = waitCount;
@@ -20,8 +20,8 @@ linkedList<Student>& Course::getWaitlist(){
 std::string Course::getCourseName() const{
     return this->courseName;  
 }
-std::string Course::getTitle() const{
-    return this->title;
+std::string Course::getCode() const{
+    return this->code;
 }
 int Course::getWaitListCount() const{
     return this->waitListCount;
@@ -38,8 +38,8 @@ void Course::setWaitlist(linkedList<Student>& waitlistedNew){
 void Course::setCourseName(std::string name){
     this->courseName = name;
 }
-void Course::setTitle(std::string val){
-    this->title = val;
+void Course::setCode(std::string val){
+    this->code = val;
 }
 void Course::setWaitListCount(int num){
     this->waitListCount = num;

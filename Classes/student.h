@@ -24,8 +24,8 @@ public:
     int getWaitlistCount() const;
     int getId() const;
     std::string getName() const;
-    linkedList<std::string> getCourses() const;
-    linkedList<std::string> getWaitList() const;
+    linkedList<std::string>& getCourses();
+    linkedList<std::string>& getWaitList();
 
     void setId(int);
     void setName(std::string);

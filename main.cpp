@@ -35,16 +35,14 @@ int main()
             menu1(courses, size);
             break;
         case ('2'):
-            /// asd
+            menu2(courses, size);
             break;
         case ('3'):
-            /// asd
             break;
         case ('4'):
             menu4(courses, size);
             break;
         case ('5'):
-            /// asd
             break;
         default:
             cout << "\n invalid input \n";

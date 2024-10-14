@@ -5,7 +5,7 @@
 
 class Course {
     private: 
-        std::string title;
+        std::string code;
         std::string courseName;
         linkedList<Student> enrolled;
         linkedList<Student> waitlist;
@@ -20,7 +20,7 @@ class Course {
         linkedList<Student>& getWaitlist() ;
 
         std::string getCourseName() const;
-        std::string getTitle() const;
+        std::string getCode() const;
 
         int getWaitListCount() const;
         int getEnrolledCount() const;
@@ -33,6 +33,6 @@ class Course {
 
 
         void setCourseName(std::string);
-        void setTitle(std::string);
+        void setCode(std::string);
 
 };

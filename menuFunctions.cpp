@@ -86,20 +86,24 @@ Course *setUp(string courseFile, string enrollmentFile)
         int waitlistCount = (nextNumber < 100) ? nextNumber : 0;
         Student newStudent(id, name, totalClassesWaitList, totalClasses, studEnrolled, waitlistCount);
 
-        node<string>* temp = totalClasses.getHead();
-        while (temp){
+        node<string> *temp = totalClasses.getHead();
+        while (temp)
+        {
             for (int z = 0; z < size; z++)
             {
-                if (result[z].getTitle() == temp->getData()){
-                    result[z].getEnrolled().insert(newStudent);}
+                if (result[z].getCode() == temp->getData())
+                {
+                    result[z].getEnrolled().insert(newStudent);
+                }
             }
             temp = temp->getLink();
         }
-        node<string>* temp2 = totalClassesWaitList.getHead();
-        while (temp2){
+        node<string> *temp2 = totalClassesWaitList.getHead();
+        while (temp2)
+        {
             for (int z = 0; z < size; z++)
             {
-                if (result[z].getTitle() == temp2->getData())
+                if (result[z].getCode() == temp2->getData())
                     result[z].getWaitlist().insert(newStudent);
             }
             temp2 = temp2->getLink();
@@ -131,7 +135,7 @@ void menu4(Course *courses, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        cout << "[ " << courses[i].getTitle() << " " << courses[i].getCourseName() << " (" << courses[i].getEnrolledCount() << ") ]";
+        cout << "[ " << courses[i].getCode() << " " << courses[i].getCourseName() << " (" << courses[i].getEnrolledCount() << ") ]";
         cout << "\n--------------------------------\n";
         courses[i].getEnrolled().printStudents();
         cout << endl;
@@ -144,7 +148,29 @@ void menu4(Course *courses, int size)
     }
 }
 
-void menu1Printer(Course *courses,int size, int id, string name, bool isWaitlist)
+Student findStudent(Course *courses, int size, int id)
+{
+    for (int i = 0; i < size; i++)
+    {
+        node<Student> *temp = courses[i].getEnrolled().getHead();
+        while (temp && id != temp->getData().getId())
+            temp = temp->getLink();
+        if (!temp)
+        {
+            temp = courses[i].getWaitlist().getHead();
+            while (temp && id != temp->getData().getId())
+                temp = temp->getLink();
+        }
+        if (temp)
+        {
+            return temp->getData();
+        }
+    }
+    Student notFound;
+    notFound.setName("student not found");
+    return notFound;
+}
+void menu1Printer(Course *courses, int size, int id, string name, bool isWaitlist)
 {
     for (int i = 0; i < size; i++)
     {
@@ -154,7 +180,7 @@ void menu1Printer(Course *courses,int size, int id, string name, bool isWaitlist
         while (temp && id != temp->getData().getId())
             temp = temp->getLink();
         if (temp)
-            cout << key << courses[i].getTitle() << "   " << courses[i].getCourseName() << endl;
+            cout << key << courses[i].getCode() << "   " << courses[i].getCourseName() << endl;
     }
 }
 void menu1(Course *courses, int size)
@@ -166,8 +192,74 @@ void menu1(Course *courses, int size)
     cout << "Enter your Name: ";
     cin >> name;
 
+    for (int i = 0; i < size; i++)
+    {
+        Student student = findStudent(courses, size, id);
+        if (student.getName() != "student not found");
+        {
+            cout << "You registered " << student.getEnrolledCount() << " courses and waitlisted " << student.getWaitlistCount() << " courses. \n";
+            break;
+        }
+    }
     menu1Printer(courses, size, id, name, false);
     menu1Printer(courses, size, id, name, true);
+}
+void updateCourseInfo(Course *courses, int size, Student student){
+    int id = student.getId();
+    for (int i = 0; i < size; i++){
+        node<Student> *temp = courses[i].getEnrolled().getHead();
+        while (temp && id != temp->getData().getId())
+            temp = temp->getLink();
+        if (!temp)
+        {
+            temp = courses[i].getWaitlist().getHead();
+            while (temp && id != temp->getData().getId())
+                temp = temp->getLink();
+        }
+        if (temp)
+        {
+            temp->setData(student);
+        }
+    }
+}
+void menu2(Course *courses, int size)
+{
+    int id;
+    string name, code, title;
+    cout << "Enter your id : ";
+    cin >> id;
+    cout << "Enter your name : ";
+    cin >> name;
+    cout << "Enter course code : ";
+    cin >> code;
+    cout << "Enter course title : ";
+    cin >> title;
+
+    Student student = findStudent(courses, size, id);
+    for (int i = 0; i < size; i++)
+    {
+        if (courses[i].getCode() == code && courses[i].getCourseName() == title)
+        {
+            if (courses[i].getEnrolledCount() == 10)
+            {
+                courses[i].setWaitListCount(courses[i].getWaitListCount() + 1);
+                student.setWaitlistCount(student.getWaitlistCount() + 1);
+                student.getWaitList().insert(courses[i].getCourseName());
+                courses[i].getWaitlist().insert(student);
+
+                cout << "You are on waitlist " << code << endl;
+            }
+            else
+            {
+                courses[i].setEnrolledCount(courses[i].getEnrolledCount() + 1);
+                student.setEnrolledCount(student.getEnrolledCount() + 1);
+                student.getCourses().insert(courses[i].getCourseName());
+                courses[i].getEnrolled().insert(student);
+                cout << "\nRegistration succeed\n";
+            }
+        }
+    }
+    updateCourseInfo(courses, size, student);
 }
 
 // cout << "\n\n\n here: ";
