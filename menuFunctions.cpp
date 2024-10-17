@@ -324,6 +324,33 @@ void menu3(Course *courses, int size)
     }
 }
 
+void deleteCourse(linkedList<Student> course)
+{
+    node<Student>* temp = course.getHead();
+    while (temp){
+        temp->getData().getCourses().deleteAll();
+        temp->getData().getWaitList().deleteAll();
+        temp = temp->getLink();
+    }
+}
+void deleteAll(Course *courses, int size)
+{
+    cout << "\nDeleting... \n\n";
+    for (int i = 0; i < size; i++)
+    {
+        if (courses[i].getWaitListCount() != 0)
+        {
+            deleteCourse(courses[i].getWaitlist());
+        }
+        if (courses[i].getEnrolledCount() != 0)
+        {
+            deleteCourse(courses[i].getEnrolled());
+        }
+        courses[i].getWaitlist().deleteAll();
+        courses[i].getEnrolled().deleteAll();
+    }
+    delete[] courses;
+}
 // cout << "\n\n\n here: ";
 // cout << name << "<<<<name " << endl;
 // printTotalClasses(totalClasses);

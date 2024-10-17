@@ -13,6 +13,7 @@ public:
     linkedList<dataType>(node<dataType> *);
     // ~linkedList();
 
+    void deleteAll();
     node<dataType> *getHead();
     void printStudents();
     void printList();              // done

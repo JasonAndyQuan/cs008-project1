@@ -16,6 +16,20 @@ template <class dataType>
 node<dataType>* linkedList<dataType>::getHead(){
     return this->head;
 }
+
+
+template<class dataType>
+void linkedList<dataType>::deleteAll(){
+    if (!this->head)
+        return;
+    node<dataType>* temp = this->head;
+    while (this->head){
+        this->head = this->head->getLink();
+        delete temp;
+        temp = this->head;  
+    }
+    head = nullptr;
+}
 // template <class dataType>
 // linkedList<dataType>::~linkedList()
 // {

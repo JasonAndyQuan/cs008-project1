@@ -45,6 +45,8 @@ int main()
             menu4(courses, size);
             break;
         case ('5'):
+            deleteAll(courses, size);
+            exit(0);
             break;
         default:
             cout << "\n invalid input \n";
