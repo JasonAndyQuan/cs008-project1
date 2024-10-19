@@ -74,12 +74,11 @@ void linkedList<dataType>::insertHead(dataType data)
     this->head = newNode;
 }
 
-
-
 template <class dataType>
 void linkedList<dataType>::printStudents(){
+    // precondition: takes in a linkedlist
+    // postcondition : Prints out the students data (uses .getName() member function).
     node<dataType>* temp = this->head;
-
     while (temp){
         std::cout << temp->getData().getId() <<  " " << temp->getData().getName() << std::endl;
         temp = temp->getLink();

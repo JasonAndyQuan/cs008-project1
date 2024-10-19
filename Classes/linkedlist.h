@@ -11,7 +11,7 @@ private:
 public:
     linkedList<dataType>();
     linkedList<dataType>(node<dataType> *);
-    // ~linkedList();
+    // ~linkedList(); doesnt work
 
     void deleteAll();
     node<dataType> *getHead();
@@ -21,5 +21,4 @@ public:
     void insertHead(dataType);     // done
     void deleteHead();             // done
     bool deleteSpecific(dataType); // done
-    // bool deleteSpecificString(std::string);
 };

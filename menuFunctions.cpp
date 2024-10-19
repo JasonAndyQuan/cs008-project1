@@ -7,12 +7,15 @@ using namespace std;
 
 Course *setUp(string courseFile, string enrollmentFile)
 {
+    //precondition: takes in the 2 files
+    //postcondition: Setups the dynamic array and populates it with the info.
+
     ifstream infile;
     int size = 1;
     Course *result = new Course[size];
     infile.open(courseFile);
     int i = 0;
-    while (!infile.eof())
+    while (!infile.eof()) 
     {
         string courseName, title;
         int enroll, waitlist;
@@ -33,15 +36,11 @@ Course *setUp(string courseFile, string enrollmentFile)
         }
     }
     size = i;
-    // for (int j = 0; j < i; j++){
-    //     cout << result[j].getCourseName() << endl;
-    // }
     infile.close();
     infile.open(enrollmentFile);
 
     int id2;
-    bool pass = false;
-
+    bool pass = false; 
     while (!infile.eof())
     {
         linkedList<std::string> totalClasses;
@@ -59,16 +58,14 @@ Course *setUp(string courseFile, string enrollmentFile)
         {
             infile >> id >> name >> studEnrolled;
         }
-        // cout << "\n----------" << name << "--------------\n";
         for (int p = 0; p < studEnrolled; p++)
         {
             infile >> courseName;
             totalClasses.insert(courseName);
-            // cout << "\n course is : " << courseName << endl;
         }
         int nextNumber;
         infile >> nextNumber;
-        if (nextNumber < 100)
+        if (nextNumber < 100) //if the next number is not an ID (less than 100), it must be the number of waitlisted classes
         {
             for (int p = 0; p < nextNumber; p++)
             {
@@ -85,9 +82,8 @@ Course *setUp(string courseFile, string enrollmentFile)
 
         int waitlistCount = (nextNumber < 100) ? nextNumber : 0;
         Student newStudent(id, name, totalClassesWaitList, totalClasses, studEnrolled, waitlistCount);
-
         node<string> *temp = totalClasses.getHead();
-        while (temp)
+        while (temp) //read in the student's classes, then add them to the courses* array
         {
             for (int z = 0; z < size; z++)
             {
@@ -109,16 +105,13 @@ Course *setUp(string courseFile, string enrollmentFile)
             temp2 = temp2->getLink();
         }
     }
-    // for (int j = 0; j < i; j++){
-    //     cout << result[j].getCourseName() << " : ";
-    //     result[j].getEnrolled().printList();
-    //     cout << endl;
-    // }
     return result;
 }
 
 int getCourseSize(string file)
 {
+    //precondition: takes in file
+    //postcondition:  returns the amount of classes in given file.
     ifstream infile;
     infile.open(file);
     int count = 0;
@@ -133,6 +126,9 @@ int getCourseSize(string file)
 
 void menu4(Course *courses, int size)
 {
+    //precondition: takes in the courses and its size
+    //postcondition: Prints out all courses and its data.
+
     for (int i = 0; i < size; i++)
     {
         cout << "[ " << courses[i].getCode() << " " << courses[i].getCourseName() << " (" << courses[i].getEnrolledCount() << ") ]";
@@ -150,6 +146,9 @@ void menu4(Course *courses, int size)
 
 Student findStudent(Course *courses, int size, int id)
 {
+    //precondition: takes in the courses, its size, and id
+    //postcondition: Returns a student's data when found.
+
     for (int i = 0; i < size; i++)
     {
         node<Student> *temp = courses[i].getEnrolled().getHead();
@@ -172,6 +171,9 @@ Student findStudent(Course *courses, int size, int id)
 }
 void menu1Printer(Course *courses, int size, int id, string name, bool isWaitlist)
 {
+    //precondition: takes in the courses and its size, and data of the student
+    //postcondition: prints out student's courses.
+
     for (int i = 0; i < size; i++)
     {
         node<Student> *temp = (isWaitlist) ? courses[i].getWaitlist().getHead() : courses[i].getEnrolled().getHead();
@@ -185,6 +187,9 @@ void menu1Printer(Course *courses, int size, int id, string name, bool isWaitlis
 }
 void menu1(Course *courses, int size)
 {
+    //precondition: takes in the courses and its size
+    //postcondition: Searches up the student and prints out their classes.
+
     int id;
     string name;
     cout << "\nEnter your id: ";
@@ -207,6 +212,9 @@ void menu1(Course *courses, int size)
 }
 void updateCourseInfo(Course *courses, int size, Student student)
 {
+    //precondition: takes in the courses and its size, and updated student data
+    //postcondition: Updates every given entry of the given student with correct info.
+
     int id = student.getId();
     for (int i = 0; i < size; i++)
     {
@@ -227,6 +235,9 @@ void updateCourseInfo(Course *courses, int size, Student student)
 }
 void menu2(Course *courses, int size)
 {
+    //precondition: takes in the courses and its size
+    //postcondition: prints out menu 2, adds a course to a students data.
+
     int id;
     string name, code, title;
     cout << "Enter your id : ";
@@ -243,7 +254,7 @@ void menu2(Course *courses, int size)
     {
         if (courses[i].getCode() == code && courses[i].getCourseName() == title)
         {
-            if (courses[i].getEnrolledCount() == 10)
+            if (courses[i].getEnrolledCount() == 10) //if the classs is full, push to waitlist
             {
                 courses[i].setWaitListCount(courses[i].getWaitListCount() + 1);
                 student.setWaitlistCount(student.getWaitlistCount() + 1);
@@ -252,7 +263,7 @@ void menu2(Course *courses, int size)
 
                 cout << "You are on waitlist " << code << endl;
             }
-            else
+            else //if the class isn't full, resume as normally.
             {
                 courses[i].setEnrolledCount(courses[i].getEnrolledCount() + 1);
                 student.setEnrolledCount(student.getEnrolledCount() + 1);
@@ -266,6 +277,8 @@ void menu2(Course *courses, int size)
 }
 void menu3(Course *courses, int size)
 {
+    //precondition: takes in the courses and its size
+    //postcondition: prints out menu 3, deletes a class from waitlist or enrolled of a student
     int id;
     string name, code, title;
     cout << "Enter your id : ";
@@ -279,7 +292,7 @@ void menu3(Course *courses, int size)
 
     Student student = findStudent(courses, size, id);
     bool isWait = false;
-    if (student.getCourses().deleteSpecific(code))
+    if (student.getCourses().deleteSpecific(code)) //configures the given student's data, then updates it with updateCourseInfo();
     {
         cout << "'" << title << "' is removed from your course list. \n";
         student.setEnrolledCount(student.getEnrolledCount() - 1);
@@ -301,21 +314,21 @@ void menu3(Course *courses, int size)
     {
         if (courses[i].getCode() == code && courses[i].getCourseName() == title)
         {
-            if (!isWait)
+            if (!isWait) //this chunk handles deleting from an enrolled class
             {
                 courses[i].getEnrolled().deleteSpecific(student);
-                if (courses[i].getWaitListCount() != 0)
+                if (courses[i].getWaitListCount() != 0) //if there are people on the waitlist and student dropped class, push from waitlist to enrolled.
                 {
                     courses[i].setWaitListCount(courses[i].getWaitListCount() - 1);
                     courses[i].getEnrolled().insertHead(courses[i].getWaitlist().getHead()->getData());
                     courses[i].getWaitlist().deleteHead();
                 }
-                else
+                else //if nobody is present on waitlist, do nothing else
                 {
                     courses[i].setEnrolledCount(courses[i].getEnrolledCount() - 1);
                 }
             }
-            else
+            else //this chunk handles deleting from the waitlist.
             {
                 courses[i].setWaitListCount(courses[i].getWaitListCount() - 1);
                 courses[i].getWaitlist().deleteSpecific(student);
@@ -326,8 +339,11 @@ void menu3(Course *courses, int size)
 
 void deleteCourse(linkedList<Student> course)
 {
-    node<Student>* temp = course.getHead();
-    while (temp){
+    // precondition: takes in a list, waitlist or enrolled list.
+    // postcondition: deletes the data of each student
+    node<Student> *temp = course.getHead();
+    while (temp)
+    {
         temp->getData().getCourses().deleteAll();
         temp->getData().getWaitList().deleteAll();
         temp = temp->getLink();
@@ -335,6 +351,8 @@ void deleteCourse(linkedList<Student> course)
 }
 void deleteAll(Course *courses, int size)
 {
+    // precondition: takes in the courses and its size
+    // postcondition: deletes all the data associated within.
     cout << "\nDeleting... \n\n";
     for (int i = 0; i < size; i++)
     {

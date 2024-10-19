@@ -17,7 +17,6 @@ public:
     void setLink(node<dataType>*); 
 };
 
-
 template<class dataType>
 node<dataType>::node() {
     this->link = nullptr;

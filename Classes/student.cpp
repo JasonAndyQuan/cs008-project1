@@ -60,10 +60,7 @@ int Student::getWaitlistCount() const {
 }
 bool operator==(const Student& one, const Student& two)
 {
-    if (one.getId() != two.getId())
-        return false;
-
-    if (one.getName() != two.getName())
+    if (one.getId() != two.getId() || one.getName() != two.getName())
         return false;
 
     return true;
